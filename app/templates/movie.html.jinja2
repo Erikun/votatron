@@ -1,0 +1,30 @@
+<form action="/movie/" method="post">
+
+    Search for a movie title
+    <input type="text" name="search">
+
+</form>
+
+
+{% if hits %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Length (minutes)</th>
+                <th>Genres</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hit in hits %}
+            <tr>
+                <td>{{ hit.primaryTitle }}</td>
+                <td>{{ hit.startYear }}</td>
+                <td>{{ hit.runtimeMinutes }}</td>
+                <td>{{ hit.genres }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
