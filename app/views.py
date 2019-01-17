@@ -3,6 +3,10 @@ import functools
 from flask import Blueprint, request, redirect, flash, render_template, session, g, url_for
 
 from . import app
+from .movie import movie
+
+
+app.register_blueprint(movie, url_prefix="/movie")
 
 
 def login_required(view):
