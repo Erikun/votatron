@@ -1,0 +1,35 @@
+<a href="{{url_for('poll.list_polls')}}">Polls</a>
+
+<h2>Nominations for poll</h2>
+
+<form action="{{url_for('nominate.nominate_alternatives', poll_id=poll_id)}}" method="post">
+    {% if alternatives | length == 0 %}
+        {% for i in range(3) %}
+        <div>
+          <label for="Title">Title:</label>
+          <input type="text" id="title" name="title">
+        </div>
+        <div>
+          <label for="link">Link:</label>
+          <input type="url" id="link" name="link">
+        </div>
+        {% endfor %}
+    {% else %}
+        {% for alternative in alternatives %}
+        <div style="display: none;">
+        <input type="number" id="id" name="id" value="{{alternative.id}}">
+        </div>
+        <div>
+          <label for="Title">Title:</label>
+          <input type="text" id="title" name="title" value="{{alternative.title}}">
+        </div>
+        <div>
+          <label for="link">Link:</label>
+          <input type="url" id="link" name="link" value="{{alternative.link}}">
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="button">
+  <button type="submit">Submit</button>
+</div>
+</form>

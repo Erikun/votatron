@@ -6,10 +6,12 @@ from . import app, db, login_required
 from .movie import movie
 from .models import User
 from .poll import poll
+from .nominate import nominate
 
 
 app.register_blueprint(movie, url_prefix="/movie")
 app.register_blueprint(poll, url_prefix="/poll")
+app.register_blueprint(nominate, url_prefix="/nominate")
 
 
 @app.route('/register', methods = ('GET', 'POST'))
@@ -51,5 +53,3 @@ def logout():
 @login_required
 def index():
     return render_template('base.html')
-
-
