@@ -28,6 +28,19 @@ class Poll(db.Model):
     def __repr__(self):
         return '<Poll {}>'.format(self.title)
 
+    def is_nominating(self, t):
+        "Whether the poll is in the nomination stage at the given time."
+        return self.voting_start is None or t < self.voting_start
+
+    def is_voting(self, t):
+        "Whether the poll is in the voting stage at the given time."
+        return self.voting_start and self.voting_start <= t and (
+            self.voting_end is None or t < self.voting_end)
+
+    def is_done(self, t):
+        "Whether the poll is finished at the given time."
+        return self.voting_end and self.voting_end <= t
+    
 
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
