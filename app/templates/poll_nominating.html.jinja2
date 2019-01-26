@@ -1,0 +1,29 @@
+<h2>Poll: {{poll.title}}</h2>
+
+<h3>Nominations</h3>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for alternative in poll.alternatives %}
+            <tr>
+                <td>
+                    {{ alternative.title }}
+                </td>
+                <td>
+                    {{ alternative.link }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
