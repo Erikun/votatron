@@ -1,0 +1,31 @@
+<a href="{{url_for('voting.create_voting')}}">Create voting</a>
+
+
+<h2>Active votings</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Creator
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for voting in votings %}
+        <tr>
+            <td>
+                <a href="{{url_for('voting.show_voting', voting_id=voting.id)}}">{{voting.title}}</a>
+            </td>
+            <td>
+                {{voting.creator.username}}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>

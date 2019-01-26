@@ -1,5 +1,8 @@
-from . import db
 from datetime import datetime
+from uuid import uuid4
+
+from . import db
+
 
 class User(db.Model):
     username = db.Column(db.String(30), primary_key=True)
@@ -11,7 +14,7 @@ class User(db.Model):
 
 
 class Voting(db.Model):
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.String, primary_key=True, default=lambda: str(uuid4()))
     creator = db.Column(db.String, db.ForeignKey('user.username'), nullable=False)
     title = db.Column(db.String(300), nullable=False)
     created = db.Column(db.DateTime, default=datetime.utcnow)
