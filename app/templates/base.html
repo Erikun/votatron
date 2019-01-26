@@ -19,5 +19,7 @@
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
-  {% block content %}{% endblock %}
+    {% block content %}
+    <a href="{{url_for('poll.list_polls')}}">Polls</a>
+    {% endblock %}
 </section>

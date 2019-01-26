@@ -1,6 +1,6 @@
 <a href="{{url_for('poll.create_poll')}}">Create poll</a>
 
-
+{% if created_polls %}
 <h2>Polls created by you</h2>
 
 <table>
@@ -47,10 +47,10 @@
     </tbody>
 
 </table>
+{% endif %}
 
-
-
-<h2>Polls where you have nominated</h2>
+{% if nominated_polls %}
+    <h2>Polls where you have nominated</h2>
 
 <table>
     <thead>
@@ -96,9 +96,11 @@
     </tbody>
 
 </table>
+{% endif %}
 
 
-<h2>Polls where you have voted</h2>
+{% if voted_polls %}
+    <h2>Polls where you have voted</h2>
 
 <table>
     <thead>
@@ -144,3 +146,4 @@
     </tbody>
 
 </table>
+{% endif %}

@@ -19,12 +19,15 @@ def list_polls():
     "Show all pllls"
     user = db.session.query(User).filter(User.username == g.user).one()
     created_polls = user.polls
-    nominated_polls = (db.session.query(Poll, Alternative)
+    nominated_polls = (db.session.query(Poll)
+                       .join(Alternative)
                        .filter(Alternative.poll_id == Poll.id)
-                       .filter(User.username == Alternative.creator)).all()
-    voted_polls = (db.session.query(Poll, Vote)
+                       .filter(Alternative.creator == user.username)
+                       .all())
+    voted_polls = (db.session.query(Poll)
+                   .join(Vote)
                    .filter(Vote.poll_id == Poll.id)
-                   .filter(User.username == Vote.username)).all()
+                   .filter(user.username == Vote.username)).all()
     return render_template('polls.html.jinja2',
                            created_polls=created_polls,
                            nominated_polls=nominated_polls,
