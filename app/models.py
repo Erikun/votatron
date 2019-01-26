@@ -3,8 +3,8 @@ from datetime import datetime
 
 class User(db.Model):
     username = db.Column(db.String(30), primary_key=True)
-    voting = db.relationship('Voting', backref='user', lazy=True)
-    vote = db.relationship('Vote', backref='user', lazy=True)
+    votings = db.relationship('Voting', backref='user', lazy=True)
+    votes = db.relationship('Vote', backref='user', lazy=True)
 
     def __repr__(self):
         '<User {}>'.format(self.username)
@@ -18,7 +18,7 @@ class Voting(db.Model):
     nomination_end = db.Column(db.DateTime, default=None)
     voting_end = db.Column(db.DateTime)
     config = db.Column(db.Text)
-    vote = db.relationship('Vote', backref='voting', lazy=True)
+    votes = db.relationship('Vote', backref='voting', lazy=True)
 
     def __repr__(self):
         '<Voting {}>'.format(self.title)
