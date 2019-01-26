@@ -31,7 +31,7 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.creator.username}}
+                    {{poll.creator}}
                 </td>
                 <td>
                     {{poll.created_at}}
@@ -80,7 +80,7 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.creator.username}}
+                    {{poll.creator}}
                 </td>
                 <td>
                     {{poll.created_at}}
@@ -128,7 +128,7 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.creator.username}}
+                    {{poll.creator}}
                 </td>
                 <td>
                     {{poll.created_at}}
