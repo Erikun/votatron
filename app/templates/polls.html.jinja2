@@ -1,0 +1,146 @@
+<a href="{{url_for('poll.create_poll')}}">Create poll</a>
+
+
+<h2>Polls created by you</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Creator
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Voting start
+            </th>
+            <th>
+                Voting end
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for poll in created_polls %}
+            <tr>
+                <td>
+                    <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
+                </td>
+                <td>
+                    {{poll.creator.username}}
+                </td>
+                <td>
+                    {{poll.created_at}}
+                </td>
+                <td>
+                    {{poll.voting_start}}
+                </td>
+                <td>
+                    {{poll.voting_end}}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+
+<h2>Polls where you have nominated</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Creator
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Voting start
+            </th>
+            <th>
+                Voting end
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for poll in nominated_polls %}
+            <tr>
+                <td>
+                    <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
+                </td>
+                <td>
+                    {{poll.creator.username}}
+                </td>
+                <td>
+                    {{poll.created_at}}
+                </td>
+                <td>
+                    {{poll.voting_start}}
+                </td>
+                <td>
+                    {{poll.voting_end}}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+<h2>Polls where you have voted</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Creator
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Voting start
+            </th>
+            <th>
+                Voting end
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for poll in voted_polls %}
+            <tr>
+                <td>
+                    <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
+                </td>
+                <td>
+                    {{poll.creator.username}}
+                </td>
+                <td>
+                    {{poll.created_at}}
+                </td>
+                <td>
+                    {{poll.voting_start}}
+                </td>
+                <td>
+                    {{poll.voting_end}}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
