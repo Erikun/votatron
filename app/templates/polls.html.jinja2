@@ -1,7 +1,7 @@
-<a href="{{url_for('voting.create_voting')}}">Create voting</a>
+<a href="{{url_for('poll.create_poll')}}">Create poll</a>
 
 
-<h2>Active votings</h2>
+<h2>Active polls</h2>
 
 <table>
     <thead>
@@ -16,13 +16,13 @@
     </thead>
 
     <tbody>
-    {% for voting in votings %}
+    {% for poll in polls %}
         <tr>
             <td>
-                <a href="{{url_for('voting.show_voting', voting_id=voting.id)}}">{{voting.title}}</a>
+                <a href="{{url_for('poll.show_polls', poll_id=poll.id)}}">{{poll.title}}</a>
             </td>
             <td>
-                {{voting.creator.username}}
+                {{poll.creator.username}}
             </td>
         </tr>
     {% endfor %}

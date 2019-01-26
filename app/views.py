@@ -5,11 +5,11 @@ from flask import Blueprint, request, redirect, flash, render_template, session,
 from . import app, db, login_required
 from .movie import movie
 from .models import User
-from .voting import voting
+from .poll import poll
 
 
 app.register_blueprint(movie, url_prefix="/movie")
-app.register_blueprint(voting, url_prefix="/voting")
+app.register_blueprint(poll, url_prefix="/poll")
 
 
 @app.route('/register', methods = ('GET', 'POST'))
