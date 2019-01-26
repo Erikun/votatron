@@ -6,11 +6,12 @@ from . import db
 
 class User(db.Model):
     username = db.Column(db.String(30), primary_key=True)
-    polls = db.relationship('Poll', backref='user', lazy=True)
+    polls = db.relationship('Poll', backref='user')
     votes = db.relationship('Vote', backref='user', lazy=True)
+    nominations = db.relationship('Alternative', backref='user', lazy=True)
 
     def __repr__(self):
-        '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.username)
 
 
 class Poll(db.Model):
@@ -25,7 +26,7 @@ class Poll(db.Model):
     alternatives = db.relationship('Alternative', backref='poll', lazy=True)
 
     def __repr__(self):
-        '<Poll {}>'.format(self.title)
+        return '<Poll {}>'.format(self.title)
 
 
 class Vote(db.Model):
@@ -38,5 +39,6 @@ class Alternative(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     poll_id = db.Column(db.String, db.ForeignKey('poll.id'), nullable=False)
     title = db.Column(db.String(300), nullable=False)
+    creator = db.Column(db.String, db.ForeignKey('user.username'), nullable=False)
     link = db.Column(db.String(300))
     score = db.Column(db.Integer, default=0)
