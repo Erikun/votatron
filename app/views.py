@@ -49,7 +49,7 @@ def logout():
     return "logout"
 
 
-@app.route('/index')
+@app.route('/')
 @login_required
 def index():
     return render_template('base.html')
