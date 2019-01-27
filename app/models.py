@@ -40,7 +40,14 @@ class Poll(db.Model):
     def is_done(self, t):
         "Whether the poll is finished at the given time."
         return self.voting_end and self.voting_end <= t
-    
+
+    def has_voted(self, username):
+        vote = (db.session.query(Vote)
+                .filter(Vote.username == username)
+                .filter(Vote.poll_id == self.id)
+                .first())
+        return vote
+        
 
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
