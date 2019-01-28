@@ -52,7 +52,9 @@ def create_poll():
         return render_template('create_poll.html.jinja2')
     else:
         data = request.form
-        poll = Poll(title=data["title"], creator=g.user)
+        poll = Poll(title=data["title"], creator=g.user,
+                    voting_start=datetime.strptime(data["voting_start"],'%Y-%m-%dT%H:%M'),
+                    voting_end=datetime.strptime(data["voting_end"],'%Y-%m-%dT%H:%M'))
         db.session.add(poll)
         db.session.commit()
         return redirect(url_for('poll.show_poll', poll_id=poll.id))
