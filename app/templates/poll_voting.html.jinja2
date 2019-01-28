@@ -1,0 +1,20 @@
+<h2>Poll: {{poll.title}}</h2>
+
+This poll is currently open for votes. Your vote has been registered!
+
+<p>
+    {% if poll.voting_end %}
+    Voting will end at {{poll.voting_end}}. Come back here then to see the result.
+    {% else %}
+    Come back here later to see the result.
+    {% endif %}
+</p>
+
+{% if poll.creator == g.user %}
+<p>
+    You can close this poll for voting. That means that the poll is finished, no more votes may be cast and the result will be displayed. There's no going back!
+    <form action="{{url_for('poll.end_vote', poll_id=poll.id)}}" method="post">
+        <input type="submit" value="End poll"/>
+    </form>
+</p>
+{% endif %}
