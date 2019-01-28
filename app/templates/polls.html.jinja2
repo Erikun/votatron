@@ -1,3 +1,11 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>Polls</h1
+{% endblock %}
+
+
+{% block content %}
+
 <a href="{{url_for('poll.create_poll')}}">Create poll</a>
 
 {% if created_polls %}
@@ -147,3 +155,4 @@
 
 </table>
 {% endif %}
+{% endblock %}

@@ -9,6 +9,8 @@ from flask import Blueprint, render_template, request, g, redirect, url_for
 from . import login_required, db
 from .models import Poll, User, Alternative, Vote
 
+import json
+
 
 poll = Blueprint('poll', __name__, template_folder='templates')
 
@@ -59,9 +61,11 @@ def create_poll():
         return render_template('create_poll.html.jinja2')
     else:
         data = request.form
+        config = {"max_nominations": data['no_alternatives'], "type": data['type']}
         poll = Poll(title=data["title"], creator=g.user,
                     voting_start=datetime.strptime(data["voting_start"],'%Y-%m-%dT%H:%M'),
-                    voting_end=datetime.strptime(data["voting_end"],'%Y-%m-%dT%H:%M'))
+                    voting_end=datetime.strptime(data["voting_end"],'%Y-%m-%dT%H:%M'),
+                    config=json.dumps(config))
         db.session.add(poll)
         db.session.commit()
         return redirect(url_for('poll.show_poll', poll_id=poll.id))

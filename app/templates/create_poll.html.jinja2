@@ -1,6 +1,6 @@
 <h2>Create a poll!</h2>
 
-<form action="{{url_for('poll.create_poll')}}" method="post">
+<form action="{{url_for('poll.create_poll')}}" method="post" enctype="multipart/form-data">
     <label for=title>Title: </label>
     <input type="text" name="title"/>
     <label for=voting_start>Voting start: </label>
@@ -10,7 +10,7 @@
     <label for=no_alternatives>Number of alternatives: </label>
     <input type="number" name="no_alternatives" min="0" max="10" />
     <label for=type>Type: </label>
-    <select id="type_select">
+    <select name="type" id="type_select">
         <option value="book">Book</option>
         <option value="movie">Movie</option>
     </select>
