@@ -2,6 +2,7 @@
 
 <a href="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}">Nominate alternative</a>
 
+
 <h3>Nominations</h3>
 
 <table>
@@ -43,3 +44,10 @@
     </tbody>
 
 </table>
+
+{% if poll.creator == g.user %}
+<form action="{{url_for('poll.start_vote', poll_id=poll.id)}}" method="post">
+    You can open this poll for voting. This means that no more alternatives may be nominated, and that users can vote. Once voting has started, there's no going back!
+    <input type="submit" value="Begin vote"/>
+</form>
+{% endif %}

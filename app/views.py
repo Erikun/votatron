@@ -7,11 +7,13 @@ from .movie import movie
 from .models import User
 from .poll import poll
 from .nominate import nominate
+from .vote import vote
 
 
 app.register_blueprint(movie, url_prefix="/movie")
 app.register_blueprint(poll, url_prefix="/poll")
 app.register_blueprint(nominate, url_prefix="/nominate")
+app.register_blueprint(vote, url_prefix="/vote")
 
 
 @app.route('/register', methods = ('GET', 'POST'))

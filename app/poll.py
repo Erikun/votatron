@@ -42,8 +42,14 @@ def show_poll(poll_id):
     now = datetime.now()
     if poll.is_nominating(now):
         return render_template('poll_nominating.html.jinja2', poll=poll)
+    if poll.is_voting(now):
+        if poll.has_voted(g.user):
+            return render_template('poll_voting.html.jinja2', poll=poll)
+        return redirect(url_for('vote.cast', poll_id=poll.id))
+    else:
+        return render_template('poll_result.html.jinja2', poll=poll)
 
-
+        
 @poll.route('/create', methods=["GET", "POST"])
 @login_required
 def create_poll():
@@ -58,3 +64,25 @@ def create_poll():
         db.session.add(poll)
         db.session.commit()
         return redirect(url_for('poll.show_poll', poll_id=poll.id))
+
+
+@poll.route('/<uuid:poll_id>/start', methods=["POST"])
+@login_required
+def start_vote(poll_id):
+    poll = db.session.query(Poll).filter(Poll.id == str(poll_id)).one()
+    now = datetime.now()
+    assert poll.is_nominating(now), "Vote has already been started."
+    poll.voting_start = now
+    db.session.commit()
+    return redirect(url_for('vote.cast', poll_id=poll.id))
+
+
+@poll.route('/<uuid:poll_id>/end', methods=["POST"])
+@login_required
+def end_vote(poll_id):
+    poll = db.session.query(Poll).filter(Poll.id == str(poll_id)).one()
+    now = datetime.now()
+    assert poll.is_voting(now), "Can't end vote that is not ongoing."
+    poll.voting_end = now
+    db.session.commit()
+    return redirect(url_for('poll.show_poll', poll_id=poll.id))
