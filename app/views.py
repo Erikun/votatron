@@ -54,4 +54,4 @@ def logout():
 @app.route('/')
 @login_required
 def index():
-    return render_template('base.html')
+    return (redirect(url_for('poll.list_polls')))
