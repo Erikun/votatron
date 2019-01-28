@@ -1,3 +1,28 @@
 <h2>Results of poll '{{poll.title}}'</h2>
 
-...
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Alternative
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for alternative in alternatives %}
+                <tr>
+                    <td>
+                        <a href="{{alternative.link}}" target="_blank">{{alternative.title}}</a>
+                    </td>
+                    <td>
+                        {{alternative.score}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>

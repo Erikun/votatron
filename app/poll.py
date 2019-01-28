@@ -47,9 +47,10 @@ def show_poll(poll_id):
             return render_template('poll_voting.html.jinja2', poll=poll)
         return redirect(url_for('vote.cast', poll_id=poll.id))
     else:
-        return render_template('poll_result.html.jinja2', poll=poll)
+        alternatives = db.session.query(Alternative).filter(Alternative.poll_id == str(poll_id)).order_by(Alternative.score.desc()).all()
+        return render_template('poll_result.html.jinja2', poll=poll, alternatives=alternatives)
 
-        
+
 @poll.route('/create', methods=["GET", "POST"])
 @login_required
 def create_poll():
