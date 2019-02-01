@@ -1,3 +1,36 @@
+{% extends 'base.html' %}
+{% block header %}
 <h2>Results of poll '{{poll.title}}'</h2>
+{% endblock %}
+{% block content %}
+<div>
+Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
+</div>
 
-...
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Alternative
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for alternative in alternatives %}
+                <tr>
+                    <td>
+                        <a href="{{alternative.link}}" target="_blank">{{alternative.title}}</a>
+                    </td>
+                    <td>
+                        {{alternative.score}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}

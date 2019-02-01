@@ -1,6 +1,9 @@
-<a href="{{url_for('poll.list_polls')}}">Polls</a>
-
+{% extends 'base.html' %}
+{% block header %}
 <h2>Nominate for poll '{{poll.title}}'</h2>
+{% endblock %}
+{% block content %}
+<a href="{{url_for('poll.list_polls')}}">Polls</a>
 
 <form action="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}" method="post">
     <div>
@@ -15,3 +18,4 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+{% endblock %}

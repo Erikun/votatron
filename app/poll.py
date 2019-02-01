@@ -9,6 +9,8 @@ from flask import Blueprint, render_template, request, g, redirect, url_for
 from . import login_required, db
 from .models import Poll, User, Alternative, Vote
 
+import json
+
 
 poll = Blueprint('poll', __name__, template_folder='templates')
 
@@ -39,26 +41,32 @@ def list_polls():
 def show_poll(poll_id):
     "Display the current state of a single poll"
     poll = db.session.query(Poll).filter(Poll.id == str(poll_id)).one()
+    poll_url = request.url
     now = datetime.now()
     if poll.is_nominating(now):
-        return render_template('poll_nominating.html.jinja2', poll=poll)
+        return render_template('poll_nominating.html.jinja2', poll=poll, poll_url=poll_url)
     if poll.is_voting(now):
         if poll.has_voted(g.user):
-            return render_template('poll_voting.html.jinja2', poll=poll)
+            return render_template('poll_voting.html.jinja2', poll=poll, poll_url=poll_url)
         return redirect(url_for('vote.cast', poll_id=poll.id))
     else:
-        return render_template('poll_result.html.jinja2', poll=poll)
+        alternatives = db.session.query(Alternative).filter(Alternative.poll_id == str(poll_id)).order_by(Alternative.score.desc()).all()
+        return render_template('poll_result.html.jinja2', poll=poll, alternatives=alternatives, poll_url=poll_url)
 
-        
+
 @poll.route('/create', methods=["GET", "POST"])
 @login_required
 def create_poll():
     "Create a new poll"
     if request.method == "GET":
-        return render_template('create_poll.html.jinja2')
+        return render_template('create_poll.html.jinja2', now=datetime.now().strftime("%Y-%m-%dT%H:%M"))
     else:
         data = request.form
-        poll = Poll(title=data["title"], creator=g.user)
+        config = {"type": data['type']}
+        poll = Poll(title=data["title"], creator=g.user,
+                    voting_start=datetime.strptime(data["voting_start"],'%Y-%m-%dT%H:%M'),
+                    voting_end=datetime.strptime(data["voting_end"],'%Y-%m-%dT%H:%M'),
+                    config=json.dumps(config))
         db.session.add(poll)
         db.session.commit()
         return redirect(url_for('poll.show_poll', poll_id=poll.id))

@@ -1,4 +1,11 @@
+{% extends 'base.html' %}
+{% block header %}
 <h2>Poll: {{poll.title}}</h2>
+{% endblock %}
+{% block content %}
+<div>
+Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
+</div>
 
 This poll is currently open for votes. Your vote has been registered!
 
@@ -18,3 +25,4 @@ This poll is currently open for votes. Your vote has been registered!
     </form>
 </p>
 {% endif %}
+{% endblock %}

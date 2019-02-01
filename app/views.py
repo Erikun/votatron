@@ -48,10 +48,12 @@ def login():
 
 @app.route('/logout', methods = ('GET', 'POST'))
 def logout():
-    return "logout"
+    g.user = None
+    session.clear()
+    return(redirect(url_for('index')))
 
 
 @app.route('/')
 @login_required
 def index():
-    return render_template('base.html')
+    return (redirect(url_for('poll.list_polls')))
