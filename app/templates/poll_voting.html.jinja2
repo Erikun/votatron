@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 <div>
-Invite people by sharing the poll url: <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{url_for('poll.show_poll', poll_id=poll.id)}}</a>
+Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
 </div>
 
 This poll is currently open for votes. Your vote has been registered!

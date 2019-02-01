@@ -48,7 +48,9 @@ def login():
 
 @app.route('/logout', methods = ('GET', 'POST'))
 def logout():
-    return "logout"
+    g.user = None
+    session.clear()
+    return(redirect(url_for('index')))
 
 
 @app.route('/')
