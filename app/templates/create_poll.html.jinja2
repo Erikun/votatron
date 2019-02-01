@@ -1,14 +1,17 @@
+{% extends 'base.html' %}
+{% block header %}
 <h2>Create a poll!</h2>
-
+{% endblock %}
+{% block content %}
 <form action="{{url_for('poll.create_poll')}}" method="post" enctype="multipart/form-data">
     <label for=title>Title: </label>
     <input type="text" name="title"/>
     <label for=voting_start>Voting start: </label>
-    <input type="datetime-local" name="voting_start" value="2019-01-01T12:00" />
+    <input type="datetime-local" name="voting_start" value={{now}} />
     <label for=voting_end>Voting ends: </label>
-    <input type="datetime-local" name="voting_end" value="2019-01-31T12:00" />
-    <label for=no_alternatives>Number of alternatives: </label>
-    <input type="number" name="no_alternatives" min="0" max="10" />
+    <input type="datetime-local" name="voting_end" value={{now}} />
+    <!-- <label for=no_alternatives>Number of alternatives: </label>
+    <input type="number" name="no_alternatives" min="0" max="10" /> -->
     <label for=type>Type: </label>
     <select name="type" id="type_select">
         <option value="book">Book</option>
@@ -16,3 +19,4 @@
     </select>
     <input type="submit" value="Create" />
 </form>
+{% endblock %}

@@ -1,5 +1,8 @@
+{% extends 'base.html' %}
+{% block header %}
 <h2>Cast your vote in poll '{{poll.title}}'</h2>
-
+{% endblock %}
+{% block content %}
 <form action="{{url_for('vote.cast', poll_id=poll.id)}}" method="post">
     <table>
         <thead>
@@ -12,7 +15,7 @@
                 </th>
             </tr>
         </thead>
-        
+
         <tbody>
             {% for alternative in poll.alternatives %}
                 <tr>
@@ -36,8 +39,9 @@
                 </tr>
             {% endfor %}
         </tbody>
-        
+
     </table>
 
     <input type="submit" value="Submit your vote" />
 </form>
+{% endblock %}
