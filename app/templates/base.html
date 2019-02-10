@@ -1,26 +1,35 @@
-<title>{% block title %}{% endblock %} - Votatron</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>Votatron</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>Username: {{ g.user }}</span>
-      <li><a href="{{ url_for('logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('register') }}">Register</a>
-      <li><a href="{{ url_for('login') }}">Log In</a>
-    {% endif %}
-      <li><a href="{{ url_for('poll.list_polls') }}">Polls</a
-  </ul>
-</nav>
+<html>
 <section class="content">
   <header>
-    {% block header %}{% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>{% block title %}{% endblock %} - Votatron</title>
   </header>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Votatron</a>
+          {% if g.user %}
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% if request.url_rule.endpoint == 'poll.list_polls' %}active{% endif %}"><a class="nav-link" href="{{ url_for('poll.list_polls') }}">Polls</a></li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <span class="navbar-text flex-row-reverse disable">Username: {{ g.user }}</span>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
+          {% else %}
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% if request.url_rule.endpoint == 'register' %}active{% endif %}"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+            <li class="nav-item {% if request.url_rule.endpoint == 'login' %}active{% endif %}"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>
+          {% endif %}
+        </ul>
+    </nav>
   {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
+    <div class="flash alert alert-primary" role="alert">{{ message }}</div>
   {% endfor %}
     {% block content %}
     <a href="{{url_for('poll.list_polls')}}">Polls</a>
     {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
 </section>
+</html>
