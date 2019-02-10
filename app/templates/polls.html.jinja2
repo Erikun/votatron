@@ -6,19 +6,16 @@
 
 {% block content %}
 
-<a href="{{url_for('poll.create_poll')}}">Create poll</a>
+<a class="btn btn-primary m-2 p-2 d-flex justify-content-center" href="{{url_for('poll.create_poll')}}">Create poll</a>
 
 {% if created_polls %}
-<h2>Polls created by you</h2>
+<h2 class="d-flex justify-content-center bg-dark">Polls created by you</h2>
 
-<table>
+<table class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
             <th>
                 Title
-            </th>
-            <th>
-                Creator
             </th>
             <th>
                 Created at
@@ -39,9 +36,6 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.creator}}
-                </td>
-                <td>
                     {{poll.created_at}}
                 </td>
                 <td>
@@ -60,14 +54,11 @@
 {% if nominated_polls %}
     <h2>Polls where you have nominated</h2>
 
-<table>
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
                 Title
-            </th>
-            <th>
-                Creator
             </th>
             <th>
                 Created at
@@ -86,9 +77,6 @@
             <tr>
                 <td>
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
-                </td>
-                <td>
-                    {{poll.creator}}
                 </td>
                 <td>
                     {{poll.created_at}}
@@ -110,14 +98,11 @@
 {% if voted_polls %}
     <h2>Polls where you have voted</h2>
 
-<table>
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
                 Title
-            </th>
-            <th>
-                Creator
             </th>
             <th>
                 Created at
@@ -136,9 +121,6 @@
             <tr>
                 <td>
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
-                </td>
-                <td>
-                    {{poll.creator}}
                 </td>
                 <td>
                     {{poll.created_at}}

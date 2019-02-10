@@ -38,10 +38,10 @@ def login():
         username = request.form['username']
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash("no such user")
+            flash("No such user")
             return(redirect(url_for('register')))
         else:
-            flash("logged in")
+            flash("Logged in as " + username)
             session['user_id'] = username
             return(redirect(url_for('index')))
 
