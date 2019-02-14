@@ -4,7 +4,7 @@ Blueprint to show or create votings.
 
 from datetime import datetime
 
-from flask import Blueprint, render_template, request, g, redirect, url_for
+from flask import Blueprint, render_template, request, g, redirect, url_for, flash
 
 from . import login_required, db
 from .models import Poll, User, Alternative, Vote
@@ -18,7 +18,7 @@ poll = Blueprint('poll', __name__, template_folder='templates')
 @poll.route('/', methods=["GET"])
 @login_required
 def list_polls():
-    "Show all pllls"
+    "Show all polls"
     user = db.session.query(User).filter(User.username == g.user).one()
     created_polls = user.polls
     nominated_polls = (db.session.query(Poll)
@@ -59,13 +59,14 @@ def show_poll(poll_id):
 def create_poll():
     "Create a new poll"
     if request.method == "GET":
-        return render_template('create_poll.html.jinja2', now=datetime.now().strftime("%Y-%m-%dT%H:%M"))
+        return render_template('create_poll.html.jinja2')
     else:
         data = request.form
+        if len(data['title']) == 0:
+            flash("You must have a title for the poll.")
+            return render_template('create_poll.html.jinja2')
         config = {"type": data['type']}
         poll = Poll(title=data["title"], creator=g.user,
-                    voting_start=datetime.strptime(data["voting_start"],'%Y-%m-%dT%H:%M'),
-                    voting_end=datetime.strptime(data["voting_end"],'%Y-%m-%dT%H:%M'),
                     config=json.dumps(config))
         db.session.add(poll)
         db.session.commit()
