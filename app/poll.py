@@ -29,6 +29,7 @@ def list_polls():
             poll = db.session.query(Poll).filter(Poll.id == poll_id).one()
             db.session.delete(poll)
             db.session.commit()
+            flash("Deleted poll " + poll.title)
     user = db.session.query(User).filter(User.username == g.user).one()
     created_polls = user.polls
     nominated_polls = (db.session.query(Poll)

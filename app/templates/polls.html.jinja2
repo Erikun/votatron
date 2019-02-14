@@ -34,23 +34,29 @@
             <tr>
                 <td>
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
+                    <form action="{{url_for('poll.list_polls')}}" method="post">
+                        <input name="poll" value="{{poll.id}}" type="hidden" />
+                        <input name="delete" value="true" type="hidden" />
+                        <input type="submit" value="Delete">
+                    </form>
                 </td>
                 <td>
-                    {{poll.created_at}}
+                    {{poll.created_at.strftime('%Y-%m-%d')}}
                 </td>
                 <td>
-                    {{poll.voting_start}}
+                    {% if poll.voting_start is none %}
+                    Voting has not started.
+                    {% else %}
+                    {{poll.voting_start.strftime('%Y-%m-%d')}}
+                    {% endif %}
                 </td>
                 <td>
-                    {{poll.voting_end}}
+                  {% if poll.voting_end is none %}
+                  {% else %}
+                  {{poll.voting_end.strftime('%Y-%m-%d')}}
+                  {% endif %}
                 </td>
-                <td>
-                <form action="{{url_for('poll.list_polls')}}" method="post">
-                    <input name="poll" value="{{poll.id}}" type="hidden" />
-                    <input name="delete" value="true" type="hidden" />
-                    <input type="submit" value="Delete">
-                </form>
-                </td>
+
             </tr>
         {% endfor %}
     </tbody>
@@ -86,13 +92,20 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.created_at}}
+                    {{poll.created_at.strftime('%Y-%m-%d')}}
                 </td>
                 <td>
-                    {{poll.voting_start}}
+                  {% if poll.voting_start is none %}
+                  Voting has not started.
+                  {% else %}
+                  {{poll.voting_start.strftime('%Y-%m-%d')}}
+                  {% endif %}
                 </td>
                 <td>
-                    {{poll.voting_end}}
+                  {% if poll.voting_end is none %}
+                  {% else %}
+                  {{poll.voting_end.strftime('%Y-%m-%d')}}
+                  {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -130,13 +143,20 @@
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
                 </td>
                 <td>
-                    {{poll.created_at}}
+                    {{poll.created_at.strftime('%Y-%m-%d')}}
                 </td>
                 <td>
-                    {{poll.voting_start}}
+                  {% if poll.voting_start is none %}
+                  Voting has not started.
+                  {% else %}
+                  {{poll.voting_start.strftime('%Y-%m-%d')}}
+                  {% endif %}
                 </td>
                 <td>
-                    {{poll.voting_end}}
+                  {% if poll.voting_end is none %}
+                  {% else %}
+                  {{poll.voting_end.strftime('%Y-%m-%d')}}
+                  {% endif %}
                 </td>
             </tr>
         {% endfor %}
