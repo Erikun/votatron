@@ -15,10 +15,20 @@ import json
 poll = Blueprint('poll', __name__, template_folder='templates')
 
 
-@poll.route('/', methods=["GET"])
+@poll.route('/', methods=["GET", "POST"])
 @login_required
 def list_polls():
     "Show all polls"
+    if request.method == "POST":
+        data = request.form
+        # Since browsers won't allow DELETE method on forms, we'll hack it instead
+        delete = data.get("delete")
+        if delete:
+            poll_id = data.get("poll")
+            print(poll_id)
+            poll = db.session.query(Poll).filter(Poll.id == poll_id).one()
+            db.session.delete(poll)
+            db.session.commit()
     user = db.session.query(User).filter(User.username == g.user).one()
     created_polls = user.polls
     nominated_polls = (db.session.query(Poll)
@@ -34,7 +44,6 @@ def list_polls():
                            created_polls=created_polls,
                            nominated_polls=nominated_polls,
                            voted_polls=voted_polls)
-
 
 @poll.route('/show/<uuid:poll_id>', methods=["GET"])
 @login_required

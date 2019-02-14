@@ -22,8 +22,8 @@ class Poll(db.Model):
     voting_start = db.Column(db.DateTime, default=None)
     voting_end = db.Column(db.DateTime)
     config = db.Column(db.Text)
-    votes = db.relationship('Vote', backref='poll', lazy=True)
-    alternatives = db.relationship('Alternative', backref='poll', lazy=True)
+    votes = db.relationship('Vote', backref='poll', lazy=True, cascade="all, delete-orphan")
+    alternatives = db.relationship('Alternative', backref='poll', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return '<Poll {}>'.format(self.title)
@@ -47,7 +47,7 @@ class Poll(db.Model):
                 .filter(Vote.poll_id == self.id)
                 .first())
         return vote
-        
+
 
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
