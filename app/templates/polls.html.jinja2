@@ -56,7 +56,7 @@
                 <form action="{{url_for('poll.list_polls')}}" method="post">
                     <input name="poll" value="{{poll.id}}" type="hidden" />
                     <input name="delete" value="true" type="hidden" />
-                    <input type="submit" value="Delete">
+                    <input class="btn btn-warning" type="submit" value="Delete">
                 </form>
                 </td>
             </tr>

@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
-{% block header %}
-<h2>Results of poll '{{poll.title}}'</h2>
-{% endblock %}
 {% block content %}
+<h2 class="text-center pt-2">Results of poll '{{poll.title}}' <span class="badge badge-secondary">Poll completed</span></h2>
 <div class="bg-light card card-body w-50 mx-auto p-2 m-2">
 Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
 </div>
 
-    <table>
+    <table class="table table-bordered table-striped table-sm mx-auto" style="width: auto;">
         <thead>
             <tr>
-                <th>
+                <th class="text-center">
                     Alternative
                 </th>
-                <th>
+                <th class="text-center">
                     Score
                 </th>
             </tr>
@@ -22,10 +20,10 @@ Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
         <tbody>
             {% for alternative in alternatives %}
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <a href="{{alternative.link}}" target="_blank">{{alternative.title}}</a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         {{alternative.score}}
                     </td>
                 </tr>

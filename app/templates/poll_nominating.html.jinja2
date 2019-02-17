@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
-{% block header %}
-<h2>Poll: {{poll.title}}</h2>
-{% endblock %}
 {% block content %}
+<div>
+<h2 class="text-center pt-2">Poll: {{poll.title}} <span class="badge badge-primary">Nominating in progress</span></h2>
+</dic>
 <div class="bg-light card card-body w-50 mx-auto p-2 m-2">
 Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
 </div>
+{% if poll.creator == g.user %}
+<div class="w-75 m-5 mx-auto">
+  {% if poll.alternatives|length > 0 %}
+    <form action="{{url_for('poll.start_vote', poll_id=poll.id)}}" method="post">
+      You can open this poll for voting. This means that no more alternatives may be nominated, and that users can vote. Once voting has started, there's no going back!
+      <input type="submit" value="Begin vote" class="btn btn-primary p-2 m-2"/>
+    </form>
+  {% else %}
+    <p> Once there are alternatives registered you can open the poll for voting.</p>
+  {% endif %}
+</div>
+{% endif %}
 <h3 class="text-center pt-2">Nominations</h3>
 
 <table class="table table-bordered table-striped table-sm w-75 mx-auto">
@@ -47,19 +59,23 @@ Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
     </tbody>
 
 </table>
-<div class="text-center">
-  <a href="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}" class="btn btn-primary">Nominate alternative</a>
+<h2 class="text-center pt-2">Nominate for poll '{{poll.title}}'</h2>
+<div class="w-75 mx-auto">
+<form class="m-2 p-2" action="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}" method="post">
+    <div class="p-1 form-group row">
+        <label for="Title">Title:</label>
+        <input class="form-control" type="text" id="title" name="title">
+    </div>
+    <div class="p-1 form-group row">
+        <label for="link">Link:</label>
+        <input class="form-control" type="url" id="link" name="link" aria-describedby="linkinline">
+        <small id="linkinline" class="text-muted">
+        Must be a correctly formatted link like 'http://www.example.com'.
+        </small>
+    </div>
+    <div class="form-group row">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
 </div>
-{% if poll.creator == g.user %}
-<div class="w-75 m-5 mx-auto">
-  {% if poll.alternatives|length > 0 %}
-    <form action="{{url_for('poll.start_vote', poll_id=poll.id)}}" method="post">
-      You can open this poll for voting. This means that no more alternatives may be nominated, and that users can vote. Once voting has started, there's no going back!
-      <input type="submit" value="Begin vote" class="btn btn-primary p-2 m-2"/>
-    </form>
-  {% else %}
-    <p> Once there are alternatives registered you can open the poll for voting.</p>
-  {% endif %}
-</div>
-{% endif %}
 {% endblock %}

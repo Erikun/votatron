@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
-{% block header %}
-<h2>Poll: {{poll.title}}</h2>
-{% endblock %}
 {% block content %}
+<h2 class="text-center pt-2">Poll: {{poll.title}} <span class="badge badge-success">Voting in progress</span></h2>
 <div class="bg-light card card-body w-50 mx-auto p-2 m-2">
 Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
 </div>
-
+<div class="w-75 m-5 mx-auto">
 This poll is currently open for votes. Your vote has been registered!
 
 <p>
@@ -21,8 +19,9 @@ This poll is currently open for votes. Your vote has been registered!
 <p>
     You can close this poll for voting. That means that the poll is finished, no more votes may be cast and the result will be displayed. There's no going back!
     <form action="{{url_for('poll.end_vote', poll_id=poll.id)}}" method="post">
-        <input type="submit" value="End poll"/>
+        <input type="submit" class="btn btn-primary p-2 m-2" value="End poll"/>
     </form>
 </p>
+</div>
 {% endif %}
 {% endblock %}

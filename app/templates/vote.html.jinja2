@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
-{% block header %}
-<h2>Cast your vote in poll '{{poll.title}}'</h2>
-{% endblock %}
 {% block content %}
+<h2 class="text-center pt-2">Cast your vote in poll '{{poll.title}}'</h2>
 <form action="{{url_for('vote.cast', poll_id=poll.id)}}" method="post">
-    <table>
+    <table class="table table-bordered table-striped table-sm mx-auto" style="width: auto;">
         <thead>
             <tr>
-                <th>
+                <th class="text-left">
                     Alternative
                 </th>
-                <th>
+                <th class="text-left">
                     Vote
                 </th>
             </tr>
@@ -23,15 +21,15 @@
                         <a href="{{alternative.link}}" target="_blank">{{alternative.title}}</a>
                     </td>
                     <td>
-                        <label>
+                        <label class="badge badge-pill badge-success text-center align-middle p-2 control-label radio-inline">
                             :)
                             <input type="radio" value="1" name="{{alternative.id}}"/>
                         </label>
-                        <label>
+                        <label class="badge badge-pill badge-danger text-center align-middle p-2 control-label radio-inline">
                             :(
                             <input type="radio" value="-1" name="{{alternative.id}}"/>
                         </label>
-                        <label>
+                        <label class="badge badge-pill badge-secondary text-center align-middle p-2 control-label radio-inline">
                             :|
                             <input type="radio" value="0" name="{{alternative.id}}"/>
                         </label>
@@ -41,7 +39,8 @@
         </tbody>
 
     </table>
-
-    <input type="submit" value="Submit your vote" />
+    <div class="text-center">
+      <input class="btn btn-primary" type="submit" value="Submit your vote" />
+    </div>
 </form>
 {% endblock %}
