@@ -3,25 +3,21 @@
 <h2>Poll: {{poll.title}}</h2>
 {% endblock %}
 {% block content %}
-<div>
+<div class="bg-light card card-body w-50 mx-auto p-2 m-2">
 Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
 </div>
-<div>
-<a href="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}">Nominate alternative</a>
-</div>
+<h3 class="text-center pt-2">Nominations</h3>
 
-<h3>Nominations</h3>
-
-<table>
+<table class="table table-bordered table-striped table-sm w-75 mx-auto">
     <thead>
         <tr>
-            <th>
+            <th class="text-left">
                 Title
             </th>
-            <th>
+            <th class="text-left">
                 Link
             </th>
-            <th>
+            <th class="text-left">
 
             </th>
         </tr>
@@ -30,18 +26,18 @@ Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
     <tbody>
         {% for alternative in poll.alternatives %}
             <tr>
-                <td>
+                <td class="align-middle">
                     {{ alternative.title }}
                 </td>
-                <td>
+                <td class="align-middle">
                     {{ alternative.link }}
                 </td>
-                <td>
+                <td class="align-middle">
                     {% if g.user == alternative.creator %}
                         <form action="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}" method="post">
                             <input name="alternative" value="{{alternative.id}}" type="hidden" />
                             <input name="delete" value="true" type="hidden" />
-                            <input type="submit" value="Delete">
+                            <input type="submit" value="Delete" class="btn btn-warning p-2 m-2">
                     </form>
                     {% endif %}
                 </td>
@@ -51,15 +47,19 @@ Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
     </tbody>
 
 </table>
-
+<div class="text-center">
+  <a href="{{url_for('nominate.nominate_alternative', poll_id=poll.id)}}" class="btn btn-primary">Nominate alternative</a>
+</div>
 {% if poll.creator == g.user %}
+<div class="w-75 m-5 mx-auto">
   {% if poll.alternatives|length > 0 %}
     <form action="{{url_for('poll.start_vote', poll_id=poll.id)}}" method="post">
       You can open this poll for voting. This means that no more alternatives may be nominated, and that users can vote. Once voting has started, there's no going back!
-      <input type="submit" value="Begin vote"/>
+      <input type="submit" value="Begin vote" class="btn btn-primary p-2 m-2"/>
     </form>
   {% else %}
     <p> Once there are alternatives registered you can open the poll for voting.</p>
   {% endif %}
+</div>
 {% endif %}
 {% endblock %}

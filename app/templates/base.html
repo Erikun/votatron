@@ -12,7 +12,7 @@
             <li class="nav-item {% if request.url_rule.endpoint == 'poll.list_polls' %}active{% endif %}"><a class="nav-link" href="{{ url_for('poll.list_polls') }}">Polls</a></li>
           </ul>
           <ul class="navbar-nav ml-auto">
-            <span class="navbar-text flex-row-reverse disable">Username: {{ g.user }}</span>
+            <span class="navbar-text flex-row-reverse disable">Logged in as {{ g.user }}</span>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
           {% else %}
           <ul class="navbar-nav mr-auto">

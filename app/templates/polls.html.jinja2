@@ -6,26 +6,27 @@
 
 {% block content %}
 
-<a class="btn btn-primary m-2 p-2 d-flex justify-content-center" href="{{url_for('poll.create_poll')}}">Create poll</a>
+<a class="btn btn-primary m-2 p-2 d-flex justify-content-center w-25 mx-auto" href="{{url_for('poll.create_poll')}}">Create poll</a>
 
 {% if created_polls %}
-<h2 class="d-flex justify-content-center bg-dark">Polls created by you</h2>
+<h2 class="text-center pt-2 mt-2">Polls created by you</h2>
 
-<table class="table table-bordered table-striped table-sm">
+<table class="table table-bordered table-striped table-sm p-5 m-5 w-75 mx-auto">
     <thead>
         <tr>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Title
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Created at
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting start
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting end
             </th>
+            <th></th>
         </tr>
     </thead>
 
@@ -34,11 +35,6 @@
             <tr>
                 <td>
                     <a href="{{url_for('poll.show_poll', poll_id=poll.id)}}">{{poll.title}}</a>
-                    <form action="{{url_for('poll.list_polls')}}" method="post">
-                        <input name="poll" value="{{poll.id}}" type="hidden" />
-                        <input name="delete" value="true" type="hidden" />
-                        <input type="submit" value="Delete">
-                    </form>
                 </td>
                 <td>
                     {{poll.created_at.strftime('%Y-%m-%d')}}
@@ -56,7 +52,13 @@
                   {{poll.voting_end.strftime('%Y-%m-%d')}}
                   {% endif %}
                 </td>
-
+                <td>
+                <form action="{{url_for('poll.list_polls')}}" method="post">
+                    <input name="poll" value="{{poll.id}}" type="hidden" />
+                    <input name="delete" value="true" type="hidden" />
+                    <input type="submit" value="Delete">
+                </form>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
@@ -65,21 +67,21 @@
 {% endif %}
 
 {% if nominated_polls %}
-    <h2>Polls where you have nominated</h2>
+    <h2 class="text-center">Polls where you have nominated</h2>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-sm p-5 m-5 w-75 mx-auto">
     <thead>
         <tr>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Title
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Created at
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting start
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting end
             </th>
         </tr>
@@ -116,21 +118,21 @@
 
 
 {% if voted_polls %}
-    <h2>Polls where you have voted</h2>
+    <h2 class="text-center pt-5 mt-5">Polls where you have voted</h2>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-sm w-75 mx-auto">
     <thead>
         <tr>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Title
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Created at
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting start
             </th>
-            <th>
+            <th class="text-left" style="width: 25%">
                 Voting end
             </th>
         </tr>
