@@ -42,7 +42,7 @@ Invite people by sharing the poll url: <a href="{{poll_url}}">{{poll_url}}</a>
                     {{ alternative.title }}
                 </td>
                 <td class="align-middle">
-                    {{ alternative.link }}
+                    <a href={{ alternative.link }}>{{ alternative.link }}</a>
                 </td>
                 <td class="align-middle">
                     {% if g.user == alternative.creator %}
