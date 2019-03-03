@@ -8,4 +8,7 @@
       <input type="submit" class="btn btn-primary p-2 m-2" value="Log In">
     </div>
   </form>
+  <div class="text-center">
+    <a href="{{url_for('register')}}?{{request.query_string.decode()}}" class="text-center">Register new user.</a>
+  </div>
 {% endblock %}

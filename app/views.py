@@ -18,6 +18,7 @@ app.register_blueprint(vote, url_prefix="/vote")
 
 @app.route('/register', methods = ('GET', 'POST'))
 def register():
+    poll_id = request.args.get('poll_id')
     if request.method == 'GET':
         return render_template('auth/register.html')
     else:
@@ -27,11 +28,14 @@ def register():
         db.session.commit()
         session['user_id'] = username
         flash("logged in as " + username)
+        if poll_id:
+            return(redirect(url_for('poll.show_poll', poll_id=poll_id)))
         return(redirect(url_for('index')))
 
 
 @app.route('/login', methods = ('GET', 'POST'))
 def login():
+    poll_id = request.args.get('poll_id')
     if request.method == 'GET':
         return render_template('auth/login.html')
     else:
@@ -39,10 +43,12 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user is None:
             flash("No such user")
-            return(redirect(url_for('register')))
+            return(redirect(url_for('register', poll_id=poll_id)))
         else:
             flash("Logged in as " + username)
             session['user_id'] = username
+            if poll_id:
+                return(redirect(url_for('poll.show_poll', poll_id=poll_id)))
             return(redirect(url_for('index')))
 
 

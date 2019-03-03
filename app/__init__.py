@@ -23,7 +23,9 @@ def login_required(view):
     def wrapped_view(**kwargs):
         load_logged_in_user()
         if g.user == None:
-            return redirect(url_for('login'))
-
+            try:
+                return redirect(url_for('login', poll_id=kwargs['poll_id']))
+            except KeyError:
+                return redirect(url_for('login'))
         return view(**kwargs)
     return wrapped_view
